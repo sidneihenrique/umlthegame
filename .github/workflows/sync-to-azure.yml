@@ -1,0 +1,24 @@
+name: Sync GitHub to Azure Repos
+
+on:
+  push:
+    branches:
+      - main  # Ou a branch que deseja sincronizar
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v2
+
+      - name: Configurar Git
+        run: |
+          git config --global user.email "henrisrs@hotmail.com"
+          git config --global user.name "sidneihenrique"
+
+      - name: Adicionar remoto do Azure
+        run: |
+          git remote add azure https://$(echo ${{ secrets.AZURE_PAT }})pucpr-estudantes@dev.azure.com/pucpr-estudantes/prj-bsi-7u-e03/_git/umlthegame
+          git fetch azure
+          git push --force azure main
