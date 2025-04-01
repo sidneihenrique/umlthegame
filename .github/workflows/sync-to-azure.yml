@@ -19,7 +19,7 @@ jobs:
 
       - name: Adicionar remoto do Azure
         run: |
-          git remote add azure https://$(echo ${{ secrets.TOKEN_AZURE }})@dev.azure.com/pucpr-estudantes/prj-bsi-7u-e03/_git/umlthegame
+          git remote add azure https://$(echo "${{ secrets.TOKEN_AZURE }}")@dev.azure.com/pucpr-estudantes/prj-bsi-7u-e03/_git/umlthegame
           git fetch azure
           git pull --rebase azure main || echo "Branch main ainda não existe no Azure."
-          git push --force azure main
+          git push azure main
